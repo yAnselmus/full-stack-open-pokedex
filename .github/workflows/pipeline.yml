@@ -13,6 +13,9 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "fsdex" #Must be unique in Heroku
+          heroku_email: "eeromakinen@hotmail.com"
       - name: npm install 
         run: npm install  
       - name: lint        
