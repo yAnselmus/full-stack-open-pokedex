@@ -32,3 +32,5 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "fsdex" #Must be unique in Heroku
           heroku_email: "eeromakinen@hotmail.com"
+          healthcheck: "https://fsdex.herokuapp.com/health"
+          checkstring: "ok"
