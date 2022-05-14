@@ -34,3 +34,5 @@ jobs:
           heroku_email: "eeromakinen@hotmail.com"
           healthcheck: "https://fsdex.herokuapp.com/health"
           checkstring: "ok"
+          delay: 5
+          rollbackonhealthcheckfailed: true
