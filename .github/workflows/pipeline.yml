@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize]
 
 jobs:
   simple_deployment_pipeline:
@@ -34,5 +37,5 @@ jobs:
           heroku_email: "eeromakinen@hotmail.com"
           healthcheck: "https://fsdex.herokuapp.com/health"
           checkstring: "ok"
-          delay: 5
+          delay: 3
           rollbackonhealthcheckfailed: true
