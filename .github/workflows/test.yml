@@ -11,15 +11,15 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - name: gihub context
+      - name: test join
         env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
+          GITHUB_CONTEXT: ${{ join(github.event.commits.*.message) }}
         run: echo "$GITHUB_CONTEXT"
-      - name: commits
+      - name: test contains - true
         env:
-          COMMITS: ${{ toJson(github.event.commits) }}
+          COMMITS: ${{ contains(join(github.event.commits.*.message, 'testing')) }}
         run: echo "$COMMITS"
-      - name: commit messages
+      - name: test contains - false
         env:
-          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message[0]) }}
+          COMMIT_MESSAGES: ${{ contains(join(github.event.commits.*.message, 'cat')) }}
         run: echo "$COMMIT_MESSAGES"
