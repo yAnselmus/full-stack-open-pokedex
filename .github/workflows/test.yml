@@ -17,9 +17,9 @@ jobs:
         run: echo "$GITHUB_CONTEXT"
       - name: test contains - true
         env:
-          COMMITS: ${{ contains(join(github.event.commits.*.message, 'testing')) }}
+          COMMITS: ${{ contains(join(github.event.commits.*.message), 'testing') }}
         run: echo "$COMMITS"
       - name: test contains - false
         env:
-          COMMIT_MESSAGES: ${{ contains(join(github.event.commits.*.message, 'cat')) }}
+          COMMIT_MESSAGES: ${{ contains(join(github.event.commits.*.message), 'cat') }}
         run: echo "$COMMIT_MESSAGES"
