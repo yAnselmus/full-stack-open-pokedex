@@ -76,3 +76,4 @@ jobs:
           details: Test Failed!
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
           text: Build failed.
+# webhook updated in secrets
