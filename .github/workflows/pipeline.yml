@@ -70,7 +70,7 @@ jobs:
           REPO_OWNER: yAnselmus
           DEFAULT_BUMP: "patch"
       - name: Build Success
-       if: success()
+        if: success()
         uses: rjstone/discord-webhook-notify@v1
         with:
           severity: info
