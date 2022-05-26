@@ -22,13 +22,14 @@ jobs:
         run: npm run eslint
       - name: build        
         run: npm run build
-      - name: Build Failure
-        if: failure()
-        uses: rjstone/discord-webhook-notify@v1
-        with:
-          severity: error
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-          text: Build failed.
+      # commented to not to notify discord for the last ex.
+      #- name: Build Failure
+       # if: failure()
+       # uses: rjstone/discord-webhook-notify@v1
+        #with:
+         # severity: error
+          #webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          #text: Build failed.
       - name: test        
         run: npm run test
       - name: e2e tests
@@ -48,6 +49,15 @@ jobs:
           checkstring: "ok"
           delay: 3
           rollbackonhealthcheckfailed: true
+      - name: Check the deployed service URL
+        uses: jtalk/url-health-check-action@v2
+        with:
+          # Check the following URLs one by one sequentially
+          url: https://fsdex.herokuapp.com/
+          # Fail this action after this many failed attempts
+          max-attempts: 3 # Optional, defaults to 1
+          # Delay between retries
+          retry-delay: 5s # Optional, only applicable to max-attempts > 1
 
   tag_release:
     needs: [simple_deployment_pipeline]
@@ -63,10 +73,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO_OWNER: yAnselmus
           DEFAULT_BUMP: "patch"
-      - name: Build Success
-        if: success()
-        uses: rjstone/discord-webhook-notify@v1
-        with:
-          severity: info
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-          text: A new version deployed.
+      # commented to not to notify discord for the last ex.
+      #- name: Build Success
+      # if: success()
+       # uses: rjstone/discord-webhook-notify@v1
+        #with:
+         # severity: info
+          #webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          #text: A new version deployed.
