@@ -22,6 +22,13 @@ jobs:
         run: npm run eslint
       - name: build        
         run: npm run build
+      - name: Build Failure
+        if: failure()
+        uses: rjstone/discord-webhook-notify@v1
+        with:
+          severity: error
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          text: Build failed.
       - name: test        
         run: npm run test
       - name: e2e tests
@@ -56,24 +63,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO_OWNER: yAnselmus
           DEFAULT_BUMP: "patch"
-
-  discord_notification:
-    runs-on: ubuntu-20.04
-    steps:
       - name: Build Success
-        if: ${{ success() }}
+        if: success()
         uses: rjstone/discord-webhook-notify@v1
         with:
           severity: info
-          details: Test Succeeded!
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
           text: A new version deployed.
-      - name: Build Failure
-        if: ${{ failure() }}
-        uses: rjstone/discord-webhook-notify@v1
-        with:
-          severity: error
-          details: Test Failed!
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-          text: Build failed.
-# webhook updated in secrets
